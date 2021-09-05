@@ -27,7 +27,7 @@ plot.igraph(er,
 df <- iris
 
 # ranked pearson correlation 
-r <- cor(x = rank(df$Sepal.Length),
+r <- cor.test(x = rank(df$Sepal.Length),
       y = rank(df$Petal.Length),
       method = "pearson")
 
