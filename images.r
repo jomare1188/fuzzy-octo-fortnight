@@ -1,6 +1,7 @@
 library("igraph")
 library("viridis")
 library("ggplot2")
+library("gridExtra")
 
 setwd("/home/j/BIOINFORMATICA/REDES/")
 # image1
@@ -55,6 +56,52 @@ scatter_smooth_pearson_rank <- ggplot(data = df, aes(rank(Sepal.Length), rank(Pe
 
 ggsave( scatter_smooth_pearson_rank, filename = "image3.svg" , units = "cm", width = 15*1.3, height = 15, dpi = 320, device = "svg")
 
+# image pearson
+p_negative <- read.table("pearson-negative.csv", header = T, sep = ",")
+p_positive <- read.table("pearson-positive.csv", header = T, sep = ",")
+p_zero <- read.table("pearson-zero.csv", header = T, sep = ",")
+
+negative <- ggplot(data = p_negative, aes(x = x, y = y)) +
+  geom_line() +
+  geom_point() +
+  ggtitle("p = -1") +
+  scale_y_continuous(breaks = c(0,1)) +
+  scale_x_continuous(breaks = c(0,1)) +
+  xlab("") +
+  ylab("") +
+  theme_classic() +
+  theme(plot.title = element_text(hjust = 0.5)) +
+  theme(axis.text=element_text(size=20),
+        axis.title=element_text(size=20,face="bold"))
+
+positive <- ggplot(data = p_positive, aes(x = x, y = y)) +
+  geom_line() +
+  geom_point()+
+  ggtitle("p = 1") +
+  scale_y_continuous(breaks = c(0,1)) +
+  scale_x_continuous(breaks = c(0,1)) +
+  xlab("") +
+  ylab("y") +
+  theme_classic() +
+  theme(plot.title = element_text(hjust = 0.5)) +
+  theme(axis.text=element_text(size=20),
+        axis.title=element_text(size=20,face="bold"))
+
+zero <- ggplot() +
+  geom_line(data = p_zero, aes(x = x, y = y)) +
+  geom_point(aes(x = runif(100, 0, 1), y = runif(100, 0 ,1))) +
+  ggtitle("p = 0") +
+  scale_y_continuous(breaks = c(0,1)) +
+  scale_x_continuous(breaks = c(0,1)) +
+  xlab("x") +
+  ylab("") +
+  theme_classic() +
+  theme(plot.title = element_text(hjust = 0.5)) +
+  theme(axis.text=element_text(size=20),
+        axis.title=element_text(size=20,face="bold"))
 
 
+pearson <- grid.arrange(positive, zero , negative, ncol=3)
+
+ggsave( pearson, filename = "test_pearson.svg" , units = "mm", width = 714, height = 237, device = "svg")
 
