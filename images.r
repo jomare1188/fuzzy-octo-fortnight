@@ -28,17 +28,17 @@ plot.igraph(er,
 df <- mtcars
 
 # ranked pearson correlation 
-r <- cor.test(x = rank(df$mpg),
-      y = rank(df$wt),
-      method = "pearson")
+spearman <- cor.test(x = df$mpg,
+      y = df$wt,
+      method = "spearman")
 
 ### Sepal.Length, Sepal.Width
 scatter_plot <- ggplot(data = df, aes(mpg, wt)) +
   geom_point(size = 1) +
   theme_classic() +
-  theme(axis.text=element_text(size=12),
-        axis.title=element_text(size=12),
-        text=element_text(family="Times New Roman", size=12))
+  theme(axis.text=element_text(size=20),
+        axis.title=element_text(size=20),
+        text=element_text(family="Times New Roman", size=20))
 
 ggsave( scatter_plot, filename = "image2.svg" , units = "cm", width = 15*1.3, height = 15, dpi = 320, device = "svg")
 library(dplyr)
@@ -51,9 +51,9 @@ scatter_smooth_pearson_rank <- ggplot(data = df, aes(rank(wt), rank(mpg))) +
   geom_point(size = 1) +
   geom_smooth(method=lm, se=FALSE) +
   theme_classic() +
-  theme(axis.text=element_text(size=12),
-        axis.title=element_text(size=12),
-        text=element_text(family="Times New Roman", size=12))
+  theme(axis.text=element_text(size=20),
+        axis.title=element_text(size=20),
+        text=element_text(family="Times New Roman", size=20))
 
 
 ggsave( scatter_smooth_pearson_rank, filename = "image3.svg" , units = "cm", width = 15*1.3, height = 15, dpi = 320, device = "svg")
@@ -99,7 +99,7 @@ zero <- ggplot() +
   scale_y_continuous(breaks = c(0,1)) +
   scale_x_continuous(breaks = c(0,1)) +
   xlab("x") +
-  ylab("") +
+  ylab("y") +
   theme_classic() +
   theme(plot.title = element_text(hjust = 0.5)) +
   theme(axis.text=element_text(size=12),
