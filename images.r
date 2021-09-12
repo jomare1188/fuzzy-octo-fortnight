@@ -5,7 +5,7 @@ library("gridExtra")
 
 setwd("/home/j/BIOINFORMATICA/REDES/")
 # image1
-er <- sample_gnm(n=10, m=20) 
+er <- sample_gnm(n=50, m=200) 
 # vector
 er_vector <- as_data_frame(er) 
 # plot
@@ -13,14 +13,29 @@ set.seed(1)
 plot.igraph(er,
             vertex.label.color="black",
             vertex.label.dist=0,
-            vertex.label.cex=2,
+            vertex.label.cex=0.1,
             vertex.label.family="Times new roman",
             vertex.frame.color="white",
-            vertex.color =  "lightgray",
+            vertex.color =  "black",
             edge.color = "black",
             edge.arrow.size=0,
-            vertex.size = 30,
+            vertex.size = 3,
+            layout_nicely(graph = er, dim = 3)
 )
+
+rrg <- sample_k_regular(50, 4, directed = FALSE, multiple = FALSE)
+plot.igraph(rrg,
+            vertex.label.color="black",
+            vertex.label.dist=0,
+            vertex.label.cex=0.1,
+            vertex.label.family="Times new roman",
+            vertex.frame.color="white",
+            vertex.color =  "black",
+            edge.color = "black",
+            edge.arrow.size=0,
+            vertex.size = 3,
+)
+
 
 # image 2 scatter plot with no smooth
 
@@ -66,7 +81,7 @@ p_zero <- read.table("pearson-zero.csv", header = T, sep = ",")
 negative <- ggplot(data = p_negative, aes(x = x, y = y)) +
   geom_line() +
   geom_point() +
-  ggtitle("p = -1") +
+  ggtitle("r = -1") +
   scale_y_continuous(breaks = c(0,1)) +
   scale_x_continuous(breaks = c(0,1)) +
   xlab("x") +
@@ -81,7 +96,7 @@ negative <- ggplot(data = p_negative, aes(x = x, y = y)) +
 positive <- ggplot(data = p_positive, aes(x = x, y = y)) +
   geom_line() +
   geom_point()+
-  ggtitle("p = 1") +
+  ggtitle("r = 1") +
   scale_y_continuous(breaks = c(0,1)) +
   scale_x_continuous(breaks = c(0,1)) +
   xlab("x") +
@@ -95,7 +110,7 @@ positive <- ggplot(data = p_positive, aes(x = x, y = y)) +
 zero <- ggplot() +
   geom_line(data = p_zero, aes(x = x, y = y)) +
   geom_point(aes(x = runif(100, 0, 1), y = runif(100, 0 ,1))) +
-  ggtitle("p = 0") +
+  ggtitle("r = 0") +
   scale_y_continuous(breaks = c(0,1)) +
   scale_x_continuous(breaks = c(0,1)) +
   xlab("x") +
