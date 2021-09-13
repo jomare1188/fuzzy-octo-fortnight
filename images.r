@@ -5,12 +5,14 @@ library("gridExtra")
 
 setwd("/home/j/BIOINFORMATICA/REDES/")
 # image1
-er <- sample_gnm(n=50, m=200) 
+er <- sample_gnm(n=50, m=150) 
 # vector
 er_vector <- as_data_frame(er) 
 # plot
 set.seed(1)
 plot.igraph(er,
+            edge.width=1.5,
+            main = "ER",
             vertex.label.color="black",
             vertex.label.dist=0,
             vertex.label.cex=0.1,
@@ -19,12 +21,14 @@ plot.igraph(er,
             vertex.color =  "black",
             edge.color = "black",
             edge.arrow.size=0,
-            vertex.size = 3,
-            layout_nicely(graph = er, dim = 3)
+            vertex.size = 11,
+            layout=layout.fruchterman.reingold
 )
 
 rrg <- sample_k_regular(50, 4, directed = FALSE, multiple = FALSE)
-plot.igraph(rrg,
+plot.igraph(rrg, 
+            edge.width=1.5,
+            main = "RR",
             vertex.label.color="black",
             vertex.label.dist=0,
             vertex.label.cex=0.1,
@@ -33,7 +37,8 @@ plot.igraph(rrg,
             vertex.color =  "black",
             edge.color = "black",
             edge.arrow.size=0,
-            vertex.size = 3,
+            vertex.size = 11,
+            layout=layout.fruchterman.reingold,
 )
 
 
